@@ -21,6 +21,8 @@ import persistence.facility.model.Facility
 import persistence.facility.model.Facility.formForFacilityEdit
 import persistence.facility.model.FacilityEdit
 
+import persistence.facility.model.Facility.formForNewFacility
+
 // 施設
 //~~~~~~~~~~~~~~~~~~~~~
 class FacilityController @javax.inject.Inject()(
@@ -48,7 +50,7 @@ class FacilityController @javax.inject.Inject()(
   }
 
   /**
-    * 施設詳細
+    * 施設編集
     */
 
   def edit(id: String) = Action.async { implicit request =>
@@ -86,11 +88,60 @@ class FacilityController @javax.inject.Inject()(
 
       },
       form => {
+        //updated_at 更新できてないかも　後で確認
           facilityDao.update(id, form)
           Redirect("/facility/list")
       }
 
     )
+  }
+
+  /**
+    * 施設作成
+    */
+
+  def newFacility = Action { implicit request =>
+    val vv = ViewValuePageLayout(id = request.uri)
+
+    Ok(views.html.site.facility.new_facility.Main(vv, formForNewFacility))
+  }
+
+  def create = Action { implicit request =>
+    formForNewFacility.bindFromRequest.fold(
+      errors => {
+        val vv = ViewValuePageLayout(id = request.uri)
+        BadRequest(views.html.site.facility.new_facility.Main(vv, errors))
+      },
+      facility => {
+        //for-yield使いたいけどうまくいかないからとりあえず動くやつ
+        //asyncにすればいいんだけど,そしたらBadRequestでエラーが出ちゃう
+
+        //for {
+        //  _ <- facilityDao.add(facility)
+        //  println("acssac")
+        //} yield {
+          facilityDao.add(facility)
+          Redirect("/facility/list")
+        //}
+      }
+
+    )
+  }
+
+  /**
+    * 施設削除
+    */
+
+  def delete(id: Long) = Action.async { implicit request =>
+    println("ここには来てます")
+    for {
+      _ <- facilityDao.delete(id)
+
+    } yield {
+
+      Redirect("/facility/list")
+    }
+
   }
 
 

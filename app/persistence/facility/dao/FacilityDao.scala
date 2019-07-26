@@ -61,6 +61,32 @@ class FacilityDAO @javax.inject.Inject()(
     )
   }
 
+  /**
+    * 施設を追加する
+    */
+
+  def add(data: Facility) = {
+    db.run(
+      data.id match {
+        case None    => slick returning slick.map(_.id) += data
+        case Some(_) => DBIO.failed(
+          new IllegalArgumentException("The given object is already assigned id.")
+        )
+      }
+    )
+  }
+
+  /**
+    * 施設を削除
+    */
+
+  def delete(id: Long) = {
+    db.run(
+      slick
+        .filter(_.id === id)
+        .delete
+    )
+  }
 
   /**
    * 地域から施設を取得
