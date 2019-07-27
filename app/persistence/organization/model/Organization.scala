@@ -18,9 +18,42 @@ case class Organization(
   createdAt:     LocalDateTime = LocalDateTime.now
 )
 
+
+
+case class OrganizationEdit(
+   locationId:   Option[Location.Id],
+   enName:       String,
+   kanziName:    String,
+   phoneticName: String,
+   address:      String
+)
+
 object Organization {
 
   type Id = Long
 
+
+  val formForOrganizationEdit = Form(
+    mapping(
+      "locationId"   -> optional(longNumber),
+      "enName"       -> nonEmptyText,
+      "kanziName"    -> nonEmptyText,
+      "phoneticName" -> nonEmptyText,
+      "address"      -> nonEmptyText,
+    )(OrganizationEdit.apply)(OrganizationEdit.unapply)
+  )
+  val formForNewOrganization = Form(
+    mapping(
+      "locationId"   -> optional(longNumber),
+      "enName"       -> nonEmptyText,
+      "kanziName"    -> nonEmptyText,
+      "phoneticName" -> nonEmptyText,
+      "address"      -> nonEmptyText,
+    )(Function.untupled(
+      t => Organization(None, t._1, t._2, t._3, t._4, t._5)
+    ))(Organization.unapply(_).map(
+      t => (t._2, t._3, t._4, t._5, t._6)
+    ))
+  )
 }
 
