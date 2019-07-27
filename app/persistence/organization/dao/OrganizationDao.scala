@@ -10,6 +10,7 @@ import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.facility.model.Facility
 import persistence.geo.model.Location
 import persistence.organization.model.Organization
+import persistence.organization.model.OrganizationEdit
 
 
 
@@ -22,6 +23,70 @@ class FacilityDAO @javax.inject.Inject()(
 
   lazy val slick = TableQuery[OrganizationTable]
 
+
+  /**
+    * 組織を全件取得
+    */
+
+  def findAll =
+    db.run {
+      slick
+        .result
+    }
+
+
+  /**
+    * 組織を取得
+    */
+
+  def get(id: Organization.Id) =
+    db.run {
+      slick
+        .filter(_.id === id)
+        .result.headOption
+    }
+
+  /**
+    * 組織を編集
+    */
+
+  def update(id: Organization.Id, form: OrganizationEdit) = {
+    db.run(
+      slick
+        .filter(_.id === id)
+        .map(p => (p.locationId, p.enName, p.kanziName, p.phoneticName, p.address))
+        .update((form.locationId, form.enName, form.kanziName, form.phoneticName, form.address))
+    )
+  }
+
+
+  /**
+    * 組織を追加
+    */
+
+  def add(data: Organization) = {
+    db.run(
+      data.id match {
+        case None    => slick returning slick.map(_.id) += data
+        case Some(_) => DBIO.failed(
+          new IllegalArgumentException("The given object is already assigned id.")
+        )
+      }
+    )
+  }
+
+
+  /**
+    * 組織を削除
+    */
+
+  def delete(id: Organization.Id) = {
+    db.run(
+      slick
+        .filter(_.id === id)
+        .delete
+    )
+  }
 
   class OrganizationTable(tag: Tag) extends Table[Organization](tag, "organization") {
 
