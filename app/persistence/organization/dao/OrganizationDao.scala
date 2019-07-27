@@ -16,7 +16,7 @@ import persistence.organization.model.OrganizationEdit
 
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~
-class FacilityDAO @javax.inject.Inject()(
+class OrganizationDAO @javax.inject.Inject()(
   val dbConfigProvider: DatabaseConfigProvider
 ) extends HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
