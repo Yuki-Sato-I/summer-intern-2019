@@ -35,7 +35,7 @@ object Organization {
 
   val formForOrganizationEdit = Form(
     mapping(
-      "locationId"   -> optional(longNumber),
+      "locationId"   -> optional(text),
       "enName"       -> nonEmptyText,
       "kanziName"    -> nonEmptyText,
       "phoneticName" -> nonEmptyText,
@@ -44,7 +44,7 @@ object Organization {
   )
   val formForNewOrganization = Form(
     mapping(
-      "locationId"   -> optional(longNumber),
+      "locationId"   -> text,
       "enName"       -> nonEmptyText,
       "kanziName"    -> nonEmptyText,
       "phoneticName" -> nonEmptyText,
