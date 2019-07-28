@@ -34,18 +34,18 @@ class RelationDAO @javax.inject.Inject()(
         .result
     }
 
-/*
+
   /**
-    * 組織を取得
+    * 関係性を取得
     */
 
-  def get(id: Organization.Id) =
+  def getRelations(id: Organization.Id) =
     db.run {
       slick
-        .filter(_.id === id)
-        .result.headOption
+        .filter(_.organizationId === id)
+        .result
     }
-
+/*
 
   /**
     * 組織を追加

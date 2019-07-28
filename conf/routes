@@ -30,6 +30,9 @@ GET  /facility/search                  controllers.facility.FacilityController.s
 # 一覧
 GET /organization/list                 controllers.organization.OrganizationController.list
 
+# 詳細
+GET /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
+
 
 
 # --[ 特集ページ ]--------------------------------------------------------------

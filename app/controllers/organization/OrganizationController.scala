@@ -3,6 +3,8 @@ package controllers.organization
 import play.api.i18n.I18nSupport
 import play.api.mvc.{AbstractController, MessagesControllerComponents}
 import model.site.organization.SiteViewValueOrganizationList
+import model.site.organization.SiteViewValueOrganizationShow
+
 import model.component.util.ViewValuePageLayout
 
 import persistence.organization.model.Organization
@@ -41,11 +43,63 @@ class OrganizationController @javax.inject.Inject()(
         relations     = relationSeq
       )
 
-      println(relationSeq)
       Ok(views.html.site.organization.list.Main(vv))
     }
   }
 
+  /**
+    * 組織詳細
+    */
+  def show(id: Organization.Id) = Action.async { implicit request =>
+    var facilityList: Seq[Facility] = Seq()
+
+    for {
+      relations <- relationDao.getRelations(id) //組織idで　filter
+    } yield {
+
+      for(relation <- relations){
+
+        for {
+          facility <- facilityDao.get(relation.facilityId)
+        } yield {
+          facilityList = facilityList :+ facility.get
+        }
+
+      }
+
+      //memo
+      //非同期だから　全部取得する前に表示しちゃう
+      //forの外に出すとこれも同時に処理されるから思ったような動作ができない
+      println("###############facilityList########################")
+      for(a <- facilityList){
+        println(a)
+      }
+      println("#######################################")
+      Ok("デバック用　ログ確認")
+
+    }
+
+
+
+/*　これが本番用
+    for {
+      organization <- organizationDao.get(id)
+      facilities   <- facilityList
+    } yield {
+      val vv = SiteViewValueOrganizationShow(
+        layout        = ViewValuePageLayout(id = request.uri),
+        organization = organization.get,
+        facilities     = facilities
+      )
+
+      Ok(views.html.site.organization.show.Main(vv))
+    }
+
+ */
+
+
+
+  }
 
 
 
