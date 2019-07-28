@@ -15,7 +15,7 @@ CREATE TABLE "organization" (
 -- 組織と施設の関連付け中間テーブル facicilityにorg_idつければいらないが、facilityを変えていいかわからないので
 ----------------------
 CREATE TABLE "organization_facility" (
-  "id"                 INT         NOT NULL PRIMARY KEY,
+  "id"                 INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
   "organization_id"    INT         NOT NULL,
   "facility_id"        INT         NOT NULL,
   "created_at"         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -36,3 +36,16 @@ INSERT INTO "organization" ("location_id", "en_name", "kanzi_name", "phonetic_na
 INSERT INTO "organization" ("location_id", "en_name", "kanzi_name", "phonetic_name", "address") VALUES ('22100', 'sosikisample11','組織サンプル11' ,'そしきさんぷる11',  '宮城県石巻市');
 INSERT INTO "organization" ("location_id", "en_name", "kanzi_name", "phonetic_name", "address") VALUES ('22100', 'sosikisample12','組織サンプル12' ,'そしきさんぷる12',  '宮城県石巻市');
 INSERT INTO "organization" ("location_id", "en_name", "kanzi_name", "phonetic_name", "address") VALUES ('22100', 'sosikisample13','組織サンプル13' ,'そしきさんぷる13',  '宮城県石巻市');
+
+
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('1', '14');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('2', '13');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '12');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '11');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '10');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '9');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '8');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '7');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '6');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '4');
+INSERT INTO "organization_facility" ("organization_id", "facility_id") VALUES ('3', '5');
