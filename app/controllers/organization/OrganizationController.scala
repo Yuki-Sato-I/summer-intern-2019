@@ -7,6 +7,7 @@ import model.component.util.ViewValuePageLayout
 
 import persistence.organization.model.Organization
 import persistence.organization.dao.OrganizationDAO
+import persistence.organization.dao.RelationDAO
 
 //まだ使うかどうかわからない
 import persistence.facility.model.Facility
@@ -20,6 +21,7 @@ class OrganizationController @javax.inject.Inject()(
   val organizationDao: OrganizationDAO,
   val facilityDao: FacilityDAO,
   val daoLocation: LocationDAO,
+  val relationDao: RelationDAO,
   cc: MessagesControllerComponents
 ) extends AbstractController(cc) with I18nSupport {
   implicit lazy val executionContext = defaultExecutionContext
@@ -31,13 +33,15 @@ class OrganizationController @javax.inject.Inject()(
   def list = Action.async { implicit request =>
     for {
       organizationSeq <- organizationDao.findAll
+      relationSeq     <- relationDao.findAll
     } yield {
       val vv = SiteViewValueOrganizationList(
-        layout = ViewValuePageLayout(id = request.uri),
-        organizations = organizationSeq
+        layout        = ViewValuePageLayout(id = request.uri),
+        organizations = organizationSeq,
+        relations     = relationSeq
       )
 
-      println(organizationSeq)
+      println(relationSeq)
       Ok(views.html.site.organization.list.Main(vv))
     }
   }
