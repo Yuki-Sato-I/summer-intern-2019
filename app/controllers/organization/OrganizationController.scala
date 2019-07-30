@@ -70,32 +70,36 @@ class OrganizationController @javax.inject.Inject()(
       //memo
       //非同期だから　全部取得する前に表示しちゃう
       //forの外に出すとこれも同時に処理されるから思ったような動作ができない
+      //Futureが使える？
       println("###############facilityList########################")
       for(a <- facilityList){
         println(a)
       }
       println("#######################################")
-      Ok("デバック用　ログ確認")
+      println(facilityList)
+      //Ok("デバック用　ログ確認")
 
     }
 
 
 
-/*　これが本番用
+///*　これが本番用
     for {
       organization <- organizationDao.get(id)
-      facilities   <- facilityList
+      //facilities   <- facilityList
     } yield {
       val vv = SiteViewValueOrganizationShow(
         layout        = ViewValuePageLayout(id = request.uri),
         organization = organization.get,
-        facilities     = facilities
+        facilities     = facilityList
       )
 
       Ok(views.html.site.organization.show.Main(vv))
     }
 
- */
+ //*/
+
+
 
 
 
