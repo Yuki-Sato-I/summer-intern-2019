@@ -156,5 +156,17 @@ class OrganizationController @javax.inject.Inject()(
 
   }
 
+  /**
+    * 組織削除
+    */
+  def delete(id: Organization.Id) = Action.async { implicit request =>
+    for {
+      _ <- organizationDao.delete(id)
+    } yield {
+      Redirect("/organization/list")
+    }
+
+  }
+
 
 }
