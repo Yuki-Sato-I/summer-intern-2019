@@ -31,6 +31,17 @@ class FacilityDAO @javax.inject.Inject()(
 
   // --[ データ処理定義 ] ------------------------------------------------------
   /**
+   * 施設をidsでfilterする
+   */
+
+  def filterByIds(ids: Seq[Long]) =
+    db.run {
+      slick
+        .filter(_.id inSet ids)
+        .result
+    }
+
+  /**
    * 施設を取得
    */
   def get(id: Facility.Id): Future[Option[Facility]] =

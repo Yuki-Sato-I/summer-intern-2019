@@ -4,5 +4,63 @@
 
 @(vv: SiteViewValueOrganizationShow)(implicit messages: play.api.i18n.Messages)
 
-@vv.organization
+
+@views.html.common.layout.InnerContent("site-organization-show", "content") {
+    <h3 class="content__section header">
+        <span class="header__title">組織</span>
+    </h3>
+    <div>
+        <div class="item-panel__wrapper">
+            <header class="organization-item__header">
+                <div class="kanziName">
+                    <label class="inline">組織名:</label>
+                    @vv.organization.kanziName
+                </div>
+            </header>
+            <section class="organization-item__content">
+                <div>
+                    <div class="item-panel__content">
+                        <div class="phoneticName">
+                            <label class="inline">ふりがな:</label>
+                            @vv.organization.phoneticName
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="organization-item__content">
+                <div>
+                    <div class="item-panel__content">
+                        <div class="enName">
+                            <label class="inline">英語名:</label>
+                            @vv.organization.enName
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="organization-item__content">
+                <div>
+                    <div class="item-panel__content">
+                        <div class="address">
+                            <label class="inline">住所:</label>
+                            @vv.organization.address
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="organization-item__content">
+                <div>
+                    <div class="item-panel__content">
+                        <div class="locationId">
+                            <label class="inline">地域id:</label>
+                            @vv.organization.locationId
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <h3 class="content__section header">
+        <span class="header__title">@vv.organization.kanziName の 施設一覧</span>
+    </h3>
 @vv.facilities
+}

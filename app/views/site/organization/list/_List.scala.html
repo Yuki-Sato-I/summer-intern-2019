@@ -5,63 +5,63 @@
 @(vv: SiteViewValueOrganizationList)(implicit messages: play.api.i18n.Messages)
 @** 施設検索一覧 *@
 @views.html.common.layout.InnerContent("site-organization-list", "content") {
-<h3 class="content__section header">
-    <span class="header__title">組織一覧</span>
-</h3>
-@** --[ 一覧 ]-------------------------------------------------------- *@
-<div class="content__section content">
-    @for(organization <- vv.organizations) {
-    <article class="organization-list-item">
-        <a href="#">                                       @* /organization/show/@organization.id *@
-            <div class="item-panel__wrapper">
-                <header class="organization-item__header">
-                    <div class="name">
-                        @organization.kanziName
-                    </div>
-                </header>
-                <section class="organization-item__content">
-                    <div>
-                        <div class="item-panel__content">
-                            <div class="address">
-                                <label class="inline">住所:</label>
-                                <p class="inline">
-                                    @organization.address
-                                </p>
+    <h3 class="content__section header">
+        <span class="header__title">組織一覧</span>
+    </h3>
+    @** --[ 一覧 ]-------------------------------------------------------- *@
+    <div class="content__section content">
+        @for(organization <- vv.organizations) {
+        <article class="organization-list-item">
+            <a href="#">                                       @* /organization/show/@organization.id *@
+                <div class="item-panel__wrapper">
+                    <header class="organization-item__header">
+                        <div class="name">
+                            @organization.kanziName
+                        </div>
+                    </header>
+                    <section class="organization-item__content">
+                        <div>
+                            <div class="item-panel__content">
+                                <div class="address">
+                                    <label class="inline">住所:</label>
+                                    <p class="inline">
+                                        @organization.address
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <section class="organization-item__content">
-                    <div>
-                        <div class="item-panel__content">
-                            <div class="address">
-                                <label class="inline">施設数:</label>
-                                <p class="inline">
-                                    @{
-                                        var count = 0
-                                        for(relation <- vv.relations){
-                                            if(relation.organizationId == organization.id.get){
-                                                count = count + 1
+                    </section>
+                    <section class="organization-item__content">
+                        <div>
+                            <div class="item-panel__content">
+                                <div class="address">
+                                    <label class="inline">施設数:</label>
+                                    <p class="inline">
+                                        @{
+                                            var count = 0
+                                            for(relation <- vv.relations){
+                                                if(relation.organizationId == organization.id.get){
+                                                    count = count + 1
+                                                }
                                             }
+                                            count
                                         }
-                                        count
-                                    }
-                                </p>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
+            </a>
+            <div style="text-align: right;">
+                @*@helper.form(controllers.organization.routes.OrganizationController.edit(organization.id.get)){*@
+                <input type="submit" value="編集" style="width: 100px; height: 40px;">
+                @*}*@
+                @*@helper.form(controllers.organization.routes.OrganizationController.delete(organization.id.get)){*@
+                <input type="submit" value="削除" style="width: 100px; height: 40px;">
+                @*}*@
             </div>
-        </a>
-        <div style="text-align: right;">
-            @*@helper.form(controllers.organization.routes.OrganizationController.edit(organization.id.get)){*@
-            <input type="submit" value="編集" style="width: 100px; height: 40px;">
-            @*}*@
-            @*@helper.form(controllers.organization.routes.OrganizationController.delete(organization.id.get)){*@
-            <input type="submit" value="削除" style="width: 100px; height: 40px;">
-            @*}*@
-        </div>
-    </article>
-    }
-</div>
+        </article>
+        }
+    </div>
 }
