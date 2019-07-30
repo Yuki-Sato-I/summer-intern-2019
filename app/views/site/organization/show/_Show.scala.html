@@ -7,60 +7,94 @@
 
 @views.html.common.layout.InnerContent("site-organization-show", "content") {
     <h3 class="content__section header">
-        <span class="header__title">組織</span>
+        <span class="header__title">@vv.organization.kanziName</span>
     </h3>
-    <div>
-        <div class="item-panel__wrapper">
-            <header class="organization-item__header">
-                <div class="kanziName">
-                    <label class="inline">組織名:</label>
-                    @vv.organization.kanziName
-                </div>
-            </header>
-            <section class="organization-item__content">
-                <div>
-                    <div class="item-panel__content">
-                        <div class="phoneticName">
-                            <label class="inline">ふりがな:</label>
-                            @vv.organization.phoneticName
+    <div class="content__section content">
+        <article class="organization">
+            <div class="item-panel__wrapper" style="height: 500px; padding: 30px;">
+                <section class="organization-item__content">
+                    <div class="kanziName">
+                        <label class="inline">組織名:</label>
+                        <p>@vv.organization.kanziName</p>
+                    </div>
+                </section>
+                <section class="organization-item__content">
+                    <div>
+                        <div class="item-panel__content">
+                            <div class="phoneticName">
+                                <label class="inline">ふりがな:</label>
+                                <p>@vv.organization.phoneticName</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="organization-item__content">
-                <div>
-                    <div class="item-panel__content">
-                        <div class="enName">
-                            <label class="inline">英語名:</label>
-                            @vv.organization.enName
+                </section>
+                <section class="organization-item__content">
+                    <div>
+                        <div class="item-panel__content">
+                            <div class="enName">
+                                <label class="inline">英語名:</label>
+                                <p>@vv.organization.enName</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="organization-item__content">
-                <div>
-                    <div class="item-panel__content">
-                        <div class="address">
-                            <label class="inline">住所:</label>
-                            @vv.organization.address
+                </section>
+                <section class="organization-item__content">
+                    <div>
+                        <div class="item-panel__content">
+                            <div class="address">
+                                <label class="inline">住所:</label>
+                                <p>@vv.organization.address</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="organization-item__content">
-                <div>
-                    <div class="item-panel__content">
-                        <div class="locationId">
-                            <label class="inline">地域id:</label>
-                            @vv.organization.locationId
+                </section>
+                <section class="organization-item__content">
+                    <div>
+                        <div class="item-panel__content">
+                            <div class="locationId">
+                                <label class="inline">地域id:</label>
+                                <p>@vv.organization.locationId</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        </article>
     </div>
     <h3 class="content__section header">
         <span class="header__title">@vv.organization.kanziName の 施設一覧</span>
     </h3>
-@vv.facilities
+    <div class="content__section content">
+        @for(facility <- vv.facilities) {
+        <article class="facility-list-item">
+            <a href="/facility/edit/@facility.id">
+                <div class="item-panel__wrapper">
+                    <header class="facility-item__header">
+                        <div class="name">
+                            @facility.name
+                        </div>
+                    </header>
+                    <section class="facility-item__content">
+                        <div>
+                            <div class="item-panel__content">
+                                <div class="address">
+                                    <label class="inline">住所:</label>
+                                    <p class="inline">
+                                        @facility.address
+                                    </p>
+                                </div>
+                                <div class="description">
+                                    <label class="inline">備考:</label>
+                                    <p class="inline">
+                                        @facility.description
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </a>
+        </article>
+        }
+    </div>
 }

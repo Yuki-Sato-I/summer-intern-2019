@@ -964,6 +964,10 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
+
+
+
+
 #site-organization-show .content__section.header {
   padding: 30px;
   background: #f5f5f5;
@@ -971,4 +975,52 @@ h1, h2, h3, h4, h5, h6 {
   #site-organization-show .content__section.header .header__title {
     font-size: 1.14286rem;
     font-weight: bold; }
+
+#site-organization-show .content__section.header {
+  padding: 30px;
+  background: #f5f5f5;
+  text-align: center; }
+  #site-organization-list .content__section.header .header__title {
+    font-size: 1.14286rem;
+    font-weight: bold; }
+
+
+#site-organization-show .content__section .inline {
+  display: inline-block; }
+
+#site-organization-show .content__section.form {
+  margin: 10px auto; }
+  #site-organization-show .content__section.form .button {
+    margin-left: 15px;
+    font-weight: bold;
+    width: 80px;
+    height: 30px; }
+
+#site-organization-show .content__section.content {
+  width: 1024px;
+  margin: auto; }
+  #site-organization-show .content__section.content article {
+    margin: 0 auto;
+    margin-bottom: 16px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(199, 199, 199, 0.5);
+    position: relative;
+    width: 650px; }
+    #site-organization-show .content__section.content article .item-panel__wrapper {
+      padding: 16px;
+      width: 100%; }
+      #site-organization-show .content__section.content article .item-panel__wrapper .facility-item__header {
+        font-weight: bold;
+        font-size: 1.14286rem; }
+      #site-organization-show .content__section.content article .item-panel__wrapper .facility-item__content {
+        margin-top: 10px; }
+        #site-organization-show .content__section.content article .item-panel__wrapper .facilityf-item__content label {
+          font-weight: bold;
+          margin-right: 5px; }
+
+ #site-organization-show .organization-item__content p {
+   font-size: 25px;
+   margin-left: 30px; }
 
