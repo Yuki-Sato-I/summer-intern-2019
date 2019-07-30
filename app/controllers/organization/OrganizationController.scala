@@ -11,6 +11,8 @@ import persistence.organization.model.Organization
 import persistence.organization.dao.OrganizationDAO
 import persistence.organization.dao.RelationDAO
 
+import persistence.organization.model.Organization.formForNewOrganization
+
 //まだ使うかどうかわからない
 import persistence.facility.model.Facility
 import persistence.facility.dao.FacilityDAO
@@ -70,7 +72,35 @@ class OrganizationController @javax.inject.Inject()(
   }
 
 
+  /**
+    * 新規作成
+   */
+  def newOrganization = Action { implicit request =>
+    val vv =  ViewValuePageLayout(id = request.uri)
+    Ok(views.html.site.organization.new_organization.Main(vv, formForNewOrganization))
+  }
 
+
+  def create = Action { implicit request =>
+    formForNewOrganization.bindFromRequest.fold(
+      errors => {
+        val vv = ViewValuePageLayout(id = request.uri)
+        BadRequest(views.html.site.organization.new_organization.Main(vv, errors))
+      },
+      organization => {
+        //for-yield使いたいけどうまくいかないからとりあえず動くやつ
+        //asyncにすればいいんだけど,そしたらBadRequestでエラーが出ちゃう
+
+        //for {
+        //  _ <- facilityDao.add(facility)
+        //} yield {
+        organizationDao.add(organization)
+        Redirect("/organization/list")
+        //}
+      }
+
+    )
+  }
 
 
 }

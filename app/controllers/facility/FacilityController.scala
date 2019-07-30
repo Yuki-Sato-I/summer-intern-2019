@@ -118,7 +118,6 @@ class FacilityController @javax.inject.Inject()(
 
         //for {
         //  _ <- facilityDao.add(facility)
-        //  println("acssac")
         //} yield {
           facilityDao.add(facility)
           Redirect("/facility/list")

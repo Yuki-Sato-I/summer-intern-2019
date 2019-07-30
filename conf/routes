@@ -28,10 +28,16 @@ GET  /facility/search                  controllers.facility.FacilityController.s
 
 # --[ 組織ページ ]--------------------------------------------------------------
 # 一覧
-GET /organization/list                 controllers.organization.OrganizationController.list
+GET  /organization/list                 controllers.organization.OrganizationController.list
+
+# 新規作成
+GET  /organization/new                  controllers.organization.OrganizationController.newOrganization
+POST /organization/create               controllers.organization.OrganizationController.create
 
 # 詳細
-GET /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
+GET  /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
+
+
 
 
 
