@@ -30,7 +30,7 @@ case class FacilitySearch(
 )
 
 case class FacilityEdit(
-   locationId: Option[Location.Id],
+   locationId: Option[Facility.Id],
    name: String,
    address: String,
    description: String

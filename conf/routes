@@ -23,8 +23,28 @@ POST /facility/delete/:id              controllers.facility.FacilityController.d
 GET  /facility/edit/:id                controllers.facility.FacilityController.edit(id)
 POST /facility/:id                     controllers.facility.FacilityController.update(id: Long)
 
-
 GET  /facility/search                  controllers.facility.FacilityController.search
+
+
+# --[ 組織ページ ]--------------------------------------------------------------
+# 一覧
+GET  /organization/list                 controllers.organization.OrganizationController.list
+
+# 新規作成
+GET  /organization/new                  controllers.organization.OrganizationController.newOrganization
+POST /organization/create               controllers.organization.OrganizationController.create
+
+# 編集
+GET  /organization/edit/:id             controllers.organization.OrganizationController.edit(id: Long)
+POST /organization/:id                  controllers.organization.OrganizationController.update(id: Long)
+
+# 削除
+POST /organization/delete/:id           controllers.organization.OrganizationController.delete(id: Long)
+
+# 詳細
+GET  /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
+
+
 
 
 

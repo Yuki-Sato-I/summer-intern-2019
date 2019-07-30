@@ -825,24 +825,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 */
 
-#facility-new-page-form.content {
+#facility-new-page-form.content,
+#organization-new-page-form.content{
   border: 1px solid #eeeeee;
 }
 
-#facility-new-page-form .content__section.header {
+#facility-new-page-form .content__section.header,
+#organization-new-page-form .content__section.header {
   padding: 30px;
   background: #f5f5f5;
   text-align: center;
 }
-#facility-new-page-form .content__section.header .header__title {
+#facility-new-page-form .content__section.header .header__title,
+#organization-new-page-form .content__section.header .header__title {
   font-size: 1.14286rem;
   font-weight: bold;
 }
 
-#facility-new-page-form .content__section.form {
+#facility-new-page-form .content__section.form,
+#organization-new-page-form .content__section.form {
   width: 660px;
   margin: 50px auto; }
-  #facility-new-page-form .content__section.form .form__section dt > label {
+  #facility-new-page-form .content__section.form .form__section dt > label,
+  #organization-new-page-form .content__section.form .form__section dt > label {
     display: inline-block;
     font-weight: bold;
     margin-bottom: 10px; }
@@ -850,7 +855,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 500px;
     display: table;
     table-layout: fixed; }
-    #facility-new-page-form .content__section.form .form__section.name-container .form__section.name {
+    #facility-new-page-form .content__section.form .form__section.name-container .form__section.name{
       padding: 0 7.5px;
       display: table-cell; }
       #facility-new-page-form .content__section.form .form__section.name-container .form__section.name:first-child {
@@ -863,31 +868,41 @@ h1, h2, h3, h4, h5, h6 {
     width: 100%; }
   #facility-new-page-form .content__section.form .form__section.address input {
     width: 100%; }
-  #facility-new-page-form .content__section.form .form__section.submit {
+  #facility-new-page-form .content__section.form .form__section.submit,
+  #organization-new-page-form .content__section.form .form__section.submit{
     margin-top: 50px;
     text-align: center; }
 
+    #organization-new-page-form .organization__form {
+     margin-left: 150px;
+    }
 
 
 
-    #facility-edit-page.content {
+
+    #facility-edit-page.content,
+    #organization-edit-page.content{
       border: 1px solid #eeeeee;
     }
 
-    #facility-edit-page .content__section.header {
+    #facility-edit-page .content__section.header,
+    #organization-edit-page .content__section.header {
       padding: 30px;
       background: #f5f5f5;
       text-align: center;
     }
-    #facility-edit-page .content__section.header .header__title {
+    #facility-edit-page .content__section.header .header__title,
+    #organization-edit-page .content__section.header .header__title{
       font-size: 1.14286rem;
       font-weight: bold;
     }
 
-    #facility-edit-page .content__section.form {
+    #facility-edit-page .content__section.form,
+    #organization-edit-page .content__section.form {
       width: 660px;
       margin: 50px auto; }
-      #facility-edit-page .content__section.form .form__section dt > label {
+      #facility-edit-page .content__section.form .form__section dt > label,
+      #organization-edit-page .content__section.form .form__section dt > label{
         display: inline-block;
         font-weight: bold;
         margin-bottom: 10px; }
@@ -906,10 +921,126 @@ h1, h2, h3, h4, h5, h6 {
           width: 100%; }
       #facility-edit-page .content__section.form .form__section.description textarea {
         width: 100%; }
-      #facility-edit-page .content__section.form .form__section.address input {
+      #facility-edit-page .content__section.form .form__section.address input,
+      #organization-edit-page .content__section.form .form__section.address input{
         width: 100%; }
-      #facility-edit-page .content__section.form .form__section.submit {
+      #facility-edit-page .content__section.form .form__section.submit,
+      #organization-edit-page .content__section.form .form__section.submit {
         margin-top: 50px;
         text-align: center; }
 
+      #organization-edit-page .organization__form {
+        margin-left: 150px;}
+
+
+
+
+/* #site-organization-list.content {
+  border: 1px solid #eeeeee; }
+*/
+#site-organization-list .content__section.header {
+  padding: 30px;
+  background: #f5f5f5;
+  text-align: center; }
+  #site-organization-list .content__section.header .header__title {
+    font-size: 1.14286rem;
+    font-weight: bold; }
+
+
+#site-organization-list .content__section .inline {
+  display: inline-block; }
+
+#site-organization-list .content__section.form {
+  margin: 10px auto; }
+  #site-organization-list .content__section.form .button {
+    margin-left: 15px;
+    font-weight: bold;
+    width: 80px;
+    height: 30px; }
+
+#site-organization-list .content__section.content {
+  width: 1024px;
+  margin: auto; }
+  #site-organization-list .content__section.content article {
+    margin: 0 auto;
+    margin-bottom: 16px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(199, 199, 199, 0.5);
+    position: relative;
+    width: 650px; }
+    #site-organization-list .content__section.content article .item-panel__wrapper {
+      padding: 16px;
+      width: 100%; }
+      #site-organization-list .content__section.content article .item-panel__wrapper .organization-item__header {
+        font-weight: bold;
+        font-size: 1.14286rem; }
+      #site-organization-list .content__section.content article .item-panel__wrapper .organization-item__content {
+        margin-top: 10px; }
+        #site-organization-list .content__section.content article .item-panel__wrapper .organization-item__content label {
+          font-weight: bold;
+          margin-right: 5px; }
+
+
+
+
+
+
+
+#site-organization-show .content__section.header {
+  padding: 30px;
+  background: #f5f5f5;
+  text-align: center; }
+  #site-organization-show .content__section.header .header__title {
+    font-size: 1.14286rem;
+    font-weight: bold; }
+
+#site-organization-show .content__section.header {
+  padding: 30px;
+  background: #f5f5f5;
+  text-align: center; }
+  #site-organization-list .content__section.header .header__title {
+    font-size: 1.14286rem;
+    font-weight: bold; }
+
+
+#site-organization-show .content__section .inline {
+  display: inline-block; }
+
+#site-organization-show .content__section.form {
+  margin: 10px auto; }
+  #site-organization-show .content__section.form .button {
+    margin-left: 15px;
+    font-weight: bold;
+    width: 80px;
+    height: 30px; }
+
+#site-organization-show .content__section.content {
+  width: 1024px;
+  margin: auto; }
+  #site-organization-show .content__section.content article {
+    margin: 0 auto;
+    margin-bottom: 16px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(199, 199, 199, 0.5);
+    position: relative;
+    width: 650px; }
+    #site-organization-show .content__section.content article .item-panel__wrapper {
+      padding: 16px;
+      width: 100%; }
+      #site-organization-show .content__section.content article .item-panel__wrapper .facility-item__header {
+        font-weight: bold;
+        font-size: 1.14286rem; }
+      #site-organization-show .content__section.content article .item-panel__wrapper .facility-item__content {
+        margin-top: 10px; }
+        #site-organization-show .content__section.content article .item-panel__wrapper .facilityf-item__content label {
+          font-weight: bold;
+          margin-right: 5px; }
+
+ #site-organization-show .organization-item__content p {
+   font-size: 25px;
+   margin-left: 30px; }
 

@@ -16,7 +16,7 @@ import persistence.organization.model.OrganizationEdit
 
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~
-class FacilityDAO @javax.inject.Inject()(
+class OrganizationDAO @javax.inject.Inject()(
   val dbConfigProvider: DatabaseConfigProvider
 ) extends HasDatabaseConfigProvider[JdbcProfile] {
   import profile.api._
@@ -55,7 +55,7 @@ class FacilityDAO @javax.inject.Inject()(
       slick
         .filter(_.id === id)
         .map(p => (p.locationId, p.enName, p.kanziName, p.phoneticName, p.address))
-        .update((form.locationId, form.enName, form.kanziName, form.phoneticName, form.address))
+        .update((form.locationId.get, form.enName, form.kanziName, form.phoneticName, form.address))
     )
   }
 

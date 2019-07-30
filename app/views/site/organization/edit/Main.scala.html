@@ -1,0 +1,17 @@
+@import persistence.organization.model.Organization
+@import model.component.util.ViewValuePageLayout
+
+@import persistence.organization.model.OrganizationEdit
+
+@(vv: ViewValuePageLayout, organizationItem: Organization, form: Form[OrganizationEdit])(implicit messages: play.api.i18n.Messages)
+@views.html.common.layout.Default(vv) {
+    @views.html.common.layout.ContentLayout(
+        id      = "organization-edit-page",
+        content = tplContent,
+    )
+}
+
+@** テンプレート: コンテンツ *@
+@tplContent = {
+    @views.html.site.organization.edit._Edit(organizationItem, form)
+}

@@ -88,7 +88,6 @@ class FacilityController @javax.inject.Inject()(
 
       },
       form => {
-        //updated_at 更新できてないかも　後で確認
           facilityDao.update(id, form)
           Redirect("/facility/list")
       }
@@ -118,7 +117,6 @@ class FacilityController @javax.inject.Inject()(
 
         //for {
         //  _ <- facilityDao.add(facility)
-        //  println("acssac")
         //} yield {
           facilityDao.add(facility)
           Redirect("/facility/list")
@@ -133,7 +131,6 @@ class FacilityController @javax.inject.Inject()(
     */
 
   def delete(id: Long) = Action.async { implicit request =>
-    println("ここには来てます")
     for {
       _ <- facilityDao.delete(id)
 
@@ -141,7 +138,6 @@ class FacilityController @javax.inject.Inject()(
 
       Redirect("/facility/list")
     }
-
   }
 
 
