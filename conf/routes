@@ -34,6 +34,10 @@ GET  /organization/list                 controllers.organization.OrganizationCon
 GET  /organization/new                  controllers.organization.OrganizationController.newOrganization
 POST /organization/create               controllers.organization.OrganizationController.create
 
+#編集
+GET  /organization/edit/:id             controllers.organization.OrganizationController.edit(id: Long)
+POST /organization/:id                  controllers.organization.OrganizationController.update(id: Long)
+
 # 詳細
 GET  /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
 

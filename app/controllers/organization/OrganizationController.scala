@@ -12,6 +12,8 @@ import persistence.organization.dao.OrganizationDAO
 import persistence.organization.dao.RelationDAO
 
 import persistence.organization.model.Organization.formForNewOrganization
+import persistence.organization.model.OrganizationEdit
+import persistence.organization.model.Organization.formForOrganizationEdit
 
 //まだ使うかどうかわからない
 import persistence.facility.model.Facility
@@ -100,6 +102,58 @@ class OrganizationController @javax.inject.Inject()(
       }
 
     )
+  }
+
+
+  /**
+    * 編集
+    */
+
+  def edit(id: Organization.Id) = Action.async { implicit request =>
+
+    for{
+      organization <- organizationDao.get(id)
+    }yield{
+      val vv = ViewValuePageLayout(id = request.uri)
+
+      val form = formForOrganizationEdit.fill(
+        OrganizationEdit(
+          Option(organization.get.locationId),
+          organization.get.enName,
+          organization.get.kanziName,
+          organization.get.phoneticName,
+          organization.get.address
+        )
+      )
+      Ok(views.html.site.organization.edit.Main(vv, organization.get, form))
+    }
+
+  }
+
+  def update(id: Organization.Id) = Action.async { implicit request =>
+
+    formForOrganizationEdit.bindFromRequest.fold(
+
+      errors => {
+        for {
+          organization <- organizationDao.get(id)
+        } yield {
+          val vv = ViewValuePageLayout(id = request.uri)
+          BadRequest(views.html.site.organization.edit.Main(vv, organization.get, errors))
+        }
+
+      },
+      form => {
+        for {
+          _ <- organizationDao.update(id, form)
+        } yield {
+
+          Redirect("/organization/list")
+        }
+      }
+
+    )
+
   }
 
 

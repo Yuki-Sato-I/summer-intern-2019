@@ -54,9 +54,9 @@
                 </div>
             </a>
             <div style="text-align: right;">
-                @*@helper.form(controllers.organization.routes.OrganizationController.edit(organization.id.get)){*@
-                <input type="submit" value="編集" style="width: 100px; height: 40px;">
-                @*}*@
+                @helper.form(controllers.organization.routes.OrganizationController.edit(organization.id.get)){
+                    <input type="submit" value="編集" style="width: 100px; height: 40px;">
+                }
                 @*@helper.form(controllers.organization.routes.OrganizationController.delete(organization.id.get)){*@
                 <input type="submit" value="削除" style="width: 100px; height: 40px;">
                 @*}*@
