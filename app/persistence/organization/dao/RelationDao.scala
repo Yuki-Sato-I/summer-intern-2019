@@ -45,13 +45,13 @@ class RelationDAO @javax.inject.Inject()(
         .filter(_.organizationId === id)
         .result
     }
-/*
+
 
   /**
-    * 組織を追加
+    * 関係性を追加
     */
 
-  def add(data: Organization) = {
+  def add(data: Relation) = {
     db.run(
       data.id match {
         case None    => slick returning slick.map(_.id) += data
@@ -64,31 +64,29 @@ class RelationDAO @javax.inject.Inject()(
 
 
   /**
-    * 組織を削除
+    * 関係性を削除
     */
 
-  def delete(id: Organization.Id) = {
+  def delete(organizationId: Organization.Id) = {
     db.run(
       slick
-        .filter(_.id === id)
+        .filter(_.organizationId === organizationId)
         .delete
     )
   }
-
- */
 
   class RelationTable(tag: Tag) extends Table[Relation](tag, "organization_facility") {
 
     //カラム
     /* @1 */ def id              = column[Relation.Id]      ("id", O.PrimaryKey, O.AutoInc)
     /* @2 */ def organizationId  = column[Organization.Id]  ("organization_id")
-    /* @3 */ def FacilityId      = column[Facility.Id]      ("facility_id")
+    /* @3 */ def facilityId      = column[Facility.Id]      ("facility_id")
     /* @4 */ def createdAt       = column[LocalDateTime]    ("created_at")
 
     //ここ理解できてないから行った時に聞こーっと
     // The * projection of the table
     def * = (
-      id.?, organizationId, FacilityId, createdAt
+      id.?, organizationId, facilityId, createdAt
     ) <> (
       /** The bidirectional mappings : Tuple(table) => Model */
       (Relation.apply _).tupled,

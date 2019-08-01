@@ -1,20 +1,26 @@
 @import persistence.organization.model.Organization
 @import persistence.organization.model.OrganizationEdit
+@import persistence.organization.model.Relation
+@import persistence.organization.model.RelationsForm
+@import model.site.organization.SiteViewValueOrganizationEdit
 @import views.html.helper
 @import play.api.data.Form
 @import helper._
 
-@(organization: Organization, form: Form[OrganizationEdit])(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelations: Form[RelationsForm])(implicit messages: play.api.i18n.Messages)
+
+@* この組織が持っている施設のidたち *@
+@facilityIds = @{vv.relations.map(f => (f.facilityId))}
 
 @views.html.common.layout.InnerContent("organization-edit-page", "content") {
     <h3 class="content__section header">
-        <span class="header__title">施設情報編集</span>
+        <span class="header__title">組織情報編集</span>
     </h3>
     <div class="content__section form">
-        @helper.form(action = controllers.organization.routes.OrganizationController.update(organization.id.getOrElse(0))){
+        @helper.form(action = controllers.organization.routes.OrganizationController.update(vv.organization.id.getOrElse(0))){
             <div class="form__section kanziName organization__form">
                 @inputText(
-                form("kanziName"),
+                formOrganization("kanziName"),
                 '_label -> "組織名",
                 '_showConstraints -> false
                 )
@@ -22,7 +28,7 @@
 
             <div class="form__section phoneticName organization__form">
                 @inputText(
-                form("phoneticName"),
+                formOrganization("phoneticName"),
                 '_label -> "ふりがな",
                 '_showConstraints -> false,
                 )
@@ -30,7 +36,7 @@
 
             <div class="form__section enName organization__form">
                 @inputText(
-                form("enName"),
+                formOrganization("enName"),
                 '_label -> "英語名",
                 '_showConstraints -> false
                 )
@@ -38,7 +44,7 @@
 
             <div class="form__section address organization__form">
                 @inputText(
-                form("address"),
+                formOrganization("address"),
                 '_label -> "住所　",
                 '_showConstraints -> false,
                 )
@@ -46,7 +52,7 @@
 
             <div class="form__section locId organization__form">
                 @inputText(
-                form("locationId"),
+                formOrganization("locationId"),
                 '_label -> "地域id",
                 '_showConstraints -> false
                 )
@@ -54,9 +60,30 @@
 
             <div class="form__section submit">
                 <button class="button button-stroked" type="submit">
-                    <span class="submit__text">完了</span>
+                    <span class="submit__text">組織編集完了</span>
                 </button>
             </div>
         }
+        @* 上のフォームと一緒に編集するのは全然わからなかった *@
+        @helper.form(action = controllers.organization.routes.OrganizationController.updateRelation(vv.organization.id.getOrElse(0))){
+
+            @for((facility, index) <- vv.facilities.zipWithIndex){
+                <p><input type="checkbox" id="relations[@index]" name="relations[@index].facility_id" value="@facility.id" onclick="checkFunc(this.id, @vv.organization.id, this.checked)"
+                          @if(facilityIds.contains(facility.id.get)){
+                          checked
+                          }
+                >@facility.name</p>
+                @if(facilityIds.contains(facility.id.get)){
+                    <script>checkFunc("relations[@index]", @vv.organization.id, true);</script>
+                }
+
+            }
+            <div class="form__section submit">
+                <button class="button button-stroked" type="submit">
+                    <span class="submit__text">施設の紐付け完了</span>
+                </button>
+            </div>
+        }
+
     </div>
 }

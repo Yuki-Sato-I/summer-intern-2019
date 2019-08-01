@@ -28,21 +28,22 @@ GET  /facility/search                  controllers.facility.FacilityController.s
 
 # --[ 組織ページ ]--------------------------------------------------------------
 # 一覧
-GET  /organization/list                 controllers.organization.OrganizationController.list
+GET  /organization/list                   controllers.organization.OrganizationController.list
 
 # 新規作成
-GET  /organization/new                  controllers.organization.OrganizationController.newOrganization
-POST /organization/create               controllers.organization.OrganizationController.create
+GET  /organization/new                    controllers.organization.OrganizationController.newOrganization
+POST /organization/create                 controllers.organization.OrganizationController.create
 
 # 編集
-GET  /organization/edit/:id             controllers.organization.OrganizationController.edit(id: Long)
-POST /organization/:id                  controllers.organization.OrganizationController.update(id: Long)
+GET  /organization/edit/:id               controllers.organization.OrganizationController.edit(id: Long)
+POST /organization/:id                    controllers.organization.OrganizationController.update(id: Long)
+POST /organization/Facility_relation/:id  controllers.organization.OrganizationController.updateRelation(id: Long)
 
 # 削除
-POST /organization/delete/:id           controllers.organization.OrganizationController.delete(id: Long)
+POST /organization/delete/:id             controllers.organization.OrganizationController.delete(id: Long)
 
 # 詳細
-GET  /organization/:id                  controllers.organization.OrganizationController.show(id: Long)
+GET  /organization/:id                    controllers.organization.OrganizationController.show(id: Long)
 
 
 

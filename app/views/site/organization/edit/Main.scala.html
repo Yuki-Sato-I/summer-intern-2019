@@ -1,10 +1,13 @@
 @import persistence.organization.model.Organization
 @import model.component.util.ViewValuePageLayout
+@import persistence.organization.model.Relation
+@import model.site.organization.SiteViewValueOrganizationEdit
 
 @import persistence.organization.model.OrganizationEdit
+@import persistence.organization.model.RelationsForm
 
-@(vv: ViewValuePageLayout, organizationItem: Organization, form: Form[OrganizationEdit])(implicit messages: play.api.i18n.Messages)
-@views.html.common.layout.Default(vv) {
+@(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelation: Form[RelationsForm])(implicit messages: play.api.i18n.Messages)
+@views.html.common.layout.Default(vv.layout) {
     @views.html.common.layout.ContentLayout(
         id      = "organization-edit-page",
         content = tplContent,
@@ -13,5 +16,5 @@
 
 @** テンプレート: コンテンツ *@
 @tplContent = {
-    @views.html.site.organization.edit._Edit(organizationItem, form)
+    @views.html.site.organization.edit._Edit(vv, formOrganization, formRelation)
 }
