@@ -14,6 +14,9 @@ import persistence.organization.dao.RelationDAO
 import persistence.organization.model.Organization.formForNewOrganization
 import persistence.organization.model.OrganizationEdit
 import persistence.organization.model.Organization.formForOrganizationEdit
+import model.site.organization.SiteViewValueOrganizationEdit
+
+import persistence.organization.model.Relation.formForNewRelation
 
 //まだ使うかどうかわからない
 import persistence.facility.model.Facility
@@ -113,10 +116,17 @@ class OrganizationController @javax.inject.Inject()(
 
     for{
       organization <- organizationDao.get(id)
+      relations    <- relationDao.getRelations(id)
+      facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
     }yield{
-      val vv = ViewValuePageLayout(id = request.uri)
+      var vv = SiteViewValueOrganizationEdit(
+        layout       = ViewValuePageLayout(id = request.uri),
+        organization = organization.get,
+        facilities   = facilities,
+        relations    = relations
+      )
 
-      val form = formForOrganizationEdit.fill(
+      val formOrganization = formForOrganizationEdit.fill(
         OrganizationEdit(
           Option(organization.get.locationId),
           organization.get.enName,
@@ -125,7 +135,7 @@ class OrganizationController @javax.inject.Inject()(
           organization.get.address
         )
       )
-      Ok(views.html.site.organization.edit.Main(vv, organization.get, form))
+      Ok(views.html.site.organization.edit.Main(vv, formOrganization, Seq(formForNewRelation)))
     }
 
   }
@@ -137,9 +147,17 @@ class OrganizationController @javax.inject.Inject()(
       errors => {
         for {
           organization <- organizationDao.get(id)
+          relations    <- relationDao.getRelations(id)
+          facilities   <- facilityDao.findAll
+          //facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
         } yield {
-          val vv = ViewValuePageLayout(id = request.uri)
-          BadRequest(views.html.site.organization.edit.Main(vv, organization.get, errors))
+          var vv = SiteViewValueOrganizationEdit(
+            layout       = ViewValuePageLayout(id = request.uri),
+            organization = organization.get,
+            facilities   = facilities,
+            relations    = relations
+          )
+          BadRequest(views.html.site.organization.edit.Main(vv, errors, Seq(formForNewRelation)))
         }
 
       },

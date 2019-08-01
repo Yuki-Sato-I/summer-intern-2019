@@ -1,20 +1,22 @@
 @import persistence.organization.model.Organization
 @import persistence.organization.model.OrganizationEdit
+@import persistence.organization.model.Relation
+@import model.site.organization.SiteViewValueOrganizationEdit
 @import views.html.helper
 @import play.api.data.Form
 @import helper._
 
-@(organization: Organization, form: Form[OrganizationEdit])(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelation: Seq[Form[Relation]])(implicit messages: play.api.i18n.Messages)
 
 @views.html.common.layout.InnerContent("organization-edit-page", "content") {
     <h3 class="content__section header">
-        <span class="header__title">施設情報編集</span>
+        <span class="header__title">組織情報編集</span>
     </h3>
     <div class="content__section form">
-        @helper.form(action = controllers.organization.routes.OrganizationController.update(organization.id.getOrElse(0))){
+        @helper.form(action = controllers.organization.routes.OrganizationController.update(vv.organization.id.getOrElse(0))){
             <div class="form__section kanziName organization__form">
                 @inputText(
-                form("kanziName"),
+                formOrganization("kanziName"),
                 '_label -> "組織名",
                 '_showConstraints -> false
                 )
@@ -22,7 +24,7 @@
 
             <div class="form__section phoneticName organization__form">
                 @inputText(
-                form("phoneticName"),
+                formOrganization("phoneticName"),
                 '_label -> "ふりがな",
                 '_showConstraints -> false,
                 )
@@ -30,7 +32,7 @@
 
             <div class="form__section enName organization__form">
                 @inputText(
-                form("enName"),
+                formOrganization("enName"),
                 '_label -> "英語名",
                 '_showConstraints -> false
                 )
@@ -38,7 +40,7 @@
 
             <div class="form__section address organization__form">
                 @inputText(
-                form("address"),
+                formOrganization("address"),
                 '_label -> "住所　",
                 '_showConstraints -> false,
                 )
@@ -46,11 +48,22 @@
 
             <div class="form__section locId organization__form">
                 @inputText(
-                form("locationId"),
+                formOrganization("locationId"),
                 '_label -> "地域id",
                 '_showConstraints -> false
                 )
             </div>
+            @{
+                for(facility <- vv.facilities){
+                    //checkbox()
+                }
+                    //checkbox(
+                        println(formOrganization)
+                        println(formRelation)
+                    //)
+
+            }
+
 
             <div class="form__section submit">
                 <button class="button button-stroked" type="submit">
