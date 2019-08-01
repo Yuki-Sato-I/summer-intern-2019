@@ -8,6 +8,9 @@
 
 @(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelation: Seq[Form[Relation]])(implicit messages: play.api.i18n.Messages)
 
+@* この組織が持っている施設のidたち *@
+@facilityIds = @{vv.relations.map(f => (f.facilityId))}
+
 @views.html.common.layout.InnerContent("organization-edit-page", "content") {
     <h3 class="content__section header">
         <span class="header__title">組織情報編集</span>
@@ -53,17 +56,18 @@
                 '_showConstraints -> false
                 )
             </div>
-            @{
-                for(facility <- vv.facilities){
-                    //checkbox()
-                }
-                    //checkbox(
-                        println(formOrganization)
-                        println(formRelation)
-                    //)
 
+            @for(facility <- vv.facilities){
+                <p><input type="checkbox" name="facility_name" value="@facility.id"
+                    @if(facilityIds.contains(facility.id.get)){
+                           checked
+                          }
+                >@facility.name</p>
             }
-
+            @{
+                println(formOrganization)
+                println(formRelation)
+             }
 
             <div class="form__section submit">
                 <button class="button button-stroked" type="submit">

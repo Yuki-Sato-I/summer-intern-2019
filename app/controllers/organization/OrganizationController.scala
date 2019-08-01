@@ -117,7 +117,8 @@ class OrganizationController @javax.inject.Inject()(
     for{
       organization <- organizationDao.get(id)
       relations    <- relationDao.getRelations(id)
-      facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
+      facilities   <- facilityDao.findAll  //選択肢
+      //facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
     }yield{
       var vv = SiteViewValueOrganizationEdit(
         layout       = ViewValuePageLayout(id = request.uri),
@@ -148,8 +149,8 @@ class OrganizationController @javax.inject.Inject()(
         for {
           organization <- organizationDao.get(id)
           relations    <- relationDao.getRelations(id)
-          facilities   <- facilityDao.findAll
-          //facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
+          //facilities   <- facilityDao.findAll
+          facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
         } yield {
           var vv = SiteViewValueOrganizationEdit(
             layout       = ViewValuePageLayout(id = request.uri),

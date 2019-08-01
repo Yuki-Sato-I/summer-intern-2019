@@ -320,7 +320,7 @@ a, .textlink {
   a:hover, .textlink:hover {
     text-decoration: underline; }
 
-input {
+input:not([type="checkbox"]) {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
