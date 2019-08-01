@@ -4,8 +4,9 @@
 @import model.site.organization.SiteViewValueOrganizationEdit
 
 @import persistence.organization.model.OrganizationEdit
+@import persistence.organization.model.RelationsForm
 
-@(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelation: Seq[Form[Relation]])(implicit messages: play.api.i18n.Messages)
+@(vv: SiteViewValueOrganizationEdit, formOrganization: Form[OrganizationEdit], formRelation: Form[RelationsForm])(implicit messages: play.api.i18n.Messages)
 @views.html.common.layout.Default(vv.layout) {
     @views.html.common.layout.ContentLayout(
         id      = "organization-edit-page",

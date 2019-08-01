@@ -18,3 +18,31 @@
     }
   }
 </script>
+
+<script>
+function checkFunc(name, organization_id, ischecked) {
+    if(ischecked == true){
+        make_hidden(name+".organization_id", organization_id)
+    }else{
+        delete_hidden(name+".organization_id")
+    }
+
+     console.log("You have bought "+organization_id);
+}
+
+function make_hidden(name, value){
+    var q = document.createElement('input');
+    q.type = 'hidden';
+    q.name = name;
+    q.value = value;
+    q.id = name;
+    document.forms[1].appendChild(q);
+    console.log("add!!!! ");
+}
+
+function delete_hidden(name){
+    element = document.getElementById(name);
+    console.log(element)
+    element.parentNode.removeChild(element)
+}
+</script>

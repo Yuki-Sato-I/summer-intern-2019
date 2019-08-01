@@ -18,7 +18,6 @@ import model.site.organization.SiteViewValueOrganizationEdit
 
 import persistence.organization.model.Relation.formForNewRelation
 
-//まだ使うかどうかわからない
 import persistence.facility.model.Facility
 import persistence.facility.dao.FacilityDAO
 import persistence.geo.model.Location
@@ -136,7 +135,7 @@ class OrganizationController @javax.inject.Inject()(
           organization.get.address
         )
       )
-      Ok(views.html.site.organization.edit.Main(vv, formOrganization, Seq(formForNewRelation)))
+      Ok(views.html.site.organization.edit.Main(vv, formOrganization, formForNewRelation))
     }
 
   }
@@ -149,7 +148,6 @@ class OrganizationController @javax.inject.Inject()(
         for {
           organization <- organizationDao.get(id)
           relations    <- relationDao.getRelations(id)
-          //facilities   <- facilityDao.findAll
           facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
         } yield {
           var vv = SiteViewValueOrganizationEdit(
@@ -158,7 +156,7 @@ class OrganizationController @javax.inject.Inject()(
             facilities   = facilities,
             relations    = relations
           )
-          BadRequest(views.html.site.organization.edit.Main(vv, errors, Seq(formForNewRelation)))
+          BadRequest(views.html.site.organization.edit.Main(vv, errors, formForNewRelation))
         }
 
       },
@@ -171,6 +169,51 @@ class OrganizationController @javax.inject.Inject()(
         }
       }
 
+    )
+
+  }
+
+  /**
+    * 施設の紐付け編集
+    */
+
+  def updateRelation(id: Organization.Id) = Action.async { implicit request =>
+
+    formForNewRelation.bindFromRequest.fold(
+      errors => {
+        for {
+          organization <- organizationDao.get(id)
+          relations    <- relationDao.getRelations(id)
+          facilities   <- facilityDao.filterByIds(relations.map(f => f.facilityId))
+        } yield {
+          var vv = SiteViewValueOrganizationEdit(
+            layout       = ViewValuePageLayout(id = request.uri),
+            organization = organization.get,
+            facilities   = facilities,
+            relations    = relations
+          )
+          var formOrganization = formForOrganizationEdit.fill(
+            OrganizationEdit(
+              Option(organization.get.locationId),
+              organization.get.enName,
+              organization.get.kanziName,
+              organization.get.phoneticName,
+              organization.get.address
+            )
+          )
+          BadRequest(views.html.site.organization.edit.Main(vv, formOrganization, errors))
+        }
+      },
+      form => {
+        for {
+          _ <- relationDao.delete(id)
+        } yield {
+          for(relation <- form.relations){
+            relationDao.add(relation)
+          }
+          Redirect("/organization/list")
+        }
+      }
     )
 
   }

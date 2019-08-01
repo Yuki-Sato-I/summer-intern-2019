@@ -9,6 +9,7 @@ import persistence.geo.model.Location
 import persistence.facility.model.Facility
 
 
+
 case class Relation(
   id:               Option[Relation.Id],
   organizationId:  Organization.Id,
@@ -16,7 +17,14 @@ case class Relation(
   createdAt:        LocalDateTime = LocalDateTime.now
 )
 
+case class newRelation(
+  organizationId:  Organization.Id,
+  facilityId:      Facility.Id,
+)
 
+case class RelationsForm(
+  relations: List[Relation]
+)
 
 object Relation {
 
@@ -24,12 +32,14 @@ object Relation {
 
   val formForNewRelation = Form(
     mapping(
-      "organization_id"   -> longNumber,
-      "facility_id"       -> longNumber,
-    )(Function.untupled(
-      t => Relation(None, t._1, t._2)
-    ))(Relation.unapply(_).map(
-      t => (t._2, t._3)
-    ))
+      "relations" -> list(mapping(
+        "organization_id"   -> longNumber,
+        "facility_id"       -> longNumber,
+      )(Function.untupled(
+        t => Relation(None, t._1, t._2)))(
+        Relation.unapply(_).map(
+        t => (t._2, t._3)
+      )))
+    )(RelationsForm.apply)(RelationsForm.unapply)
   )
 }
