@@ -19,3 +19,15 @@ case class ViewValuePagination(
   hasPrev:    Boolean,  // 前頁フラグ
 )
 
+
+//pagenationのクラス既に存在してたのをあとで見つけちゃった.
+//けど自分でつくったものでやっちゃったから自分のものを使う
+case class PaginatedResult[T](
+  totalCount:      Int,
+  pageCount:       Int,
+  currentPage:     Int,
+  entities:        List[T],
+  hasNextPage:     Boolean,
+  hasPreviousPage: Boolean
+)
+

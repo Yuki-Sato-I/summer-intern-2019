@@ -13,7 +13,7 @@ import persistence.organization.model.Organization
 import persistence.organization.model.OrganizationEdit
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import model.site.organization.PaginatedResult
+import model.component.util.PaginatedResult
 
 import scala.math._ //計算用
 // DAO: 組織情報
