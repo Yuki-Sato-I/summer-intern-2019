@@ -44,7 +44,7 @@
 
   @** --[ 一覧 ]-------------------------------------------------------- *@
   <div class="content__section content">
-    @for(facility <- vv.facilities) {
+    @for(facility <- vv.facilities.entities) {
       <article class="facility-list-item">
         <a href="/facility/edit/@facility.id">
           <div class="item-panel__wrapper">
@@ -81,8 +81,32 @@
         </div>
       </article>
     }
+    <div class="pager">
+      <ui class="pagination">
+        @if(vv.facilities.hasPreviousPage){
+          <li class="pre"><a href="javascript:movePageForFacilityList('page=@{vv.facilities.currentPage-1}')"><span>«</span></a></li>
+        }
+        @for(i <- 1 to vv.facilities.pageCount){
+        <li><a href="javascript:movePageForFacilityList('page=@i')"
+               @if(vv.facilities.currentPage == i){
+               class="active"
+               style="pointer-events: none;"
+               }
+        ><span>@i</span></a></li>
+        }
+        @if(vv.facilities.hasNextPage){
+          <li class="pre"><a href="javascript:movePageForFacilityList('page=@{vv.facilities.currentPage+1}')"><span>»</span></a></li>
+        }
+      </ui>
+    </div>
   </div>
 }
+
+@{
+println(vv.location)
+}
+
+
 
 @*
 <script>

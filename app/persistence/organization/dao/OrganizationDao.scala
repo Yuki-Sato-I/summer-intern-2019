@@ -12,8 +12,10 @@ import persistence.geo.model.Location
 import persistence.organization.model.Organization
 import persistence.organization.model.OrganizationEdit
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import model.component.util.PaginatedResult
 
-
+import scala.math.ceil //計算用
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~
 class OrganizationDAO @javax.inject.Inject()(
@@ -23,7 +25,6 @@ class OrganizationDAO @javax.inject.Inject()(
 
   lazy val slick = TableQuery[OrganizationTable]
 
-
   /**
     * 組織を全件取得
     */
@@ -32,6 +33,29 @@ class OrganizationDAO @javax.inject.Inject()(
     db.run {
       slick
         .result
+    }
+
+  /**
+    *
+    * @param limit  1ページあたりのデータ数
+    * @param offset 先頭から何個データを抜かすか
+    * @param page   現在のページ
+    * @return       PaginateResult
+    */
+  def findWithPagenate(limit: Int, offset: Int, page: Int) =
+    db.run {
+      for {
+        organizations       <-  slick.drop(offset).take(limit).result
+        numOfOrganizations  <-  slick.length.result
+      } yield PaginatedResult(
+        totalCount = numOfOrganizations,
+        pageCount  = ceil(numOfOrganizations.toDouble/limit.toDouble).toInt,
+        currentPage = page,
+        entities = organizations.toList,
+        hasNextPage = numOfOrganizations - (offset + limit) > 0,
+        hasPreviousPage = offset != 0
+      )
+
     }
 
 

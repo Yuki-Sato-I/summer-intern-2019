@@ -1044,3 +1044,55 @@ h1, h2, h3, h4, h5, h6 {
    font-size: 25px;
    margin-left: 30px; }
 
+    .pager {
+       display: block;
+       width: 650px;
+       margin: 0 auto;
+       text-align: center;
+    }
+
+   .pager .pagination {
+     text-align: center;
+
+   }
+
+   .pager .pagination li {
+     display: inline;
+     margin: 0 2px;
+     padding: 0;
+     display: inline-block;
+     background: #98fb98;
+     width: 50px;
+     height: 50px;
+     text-align: center;
+     position: relative;
+     border-radius: 10px;
+   }
+
+
+   .pager .pagination li a{
+     vertical-align: middle;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     text-align: center;
+     display:table;
+     color: #fff;
+     text-decoration: none;
+   }
+
+   .pager .pagination li a span{
+     display:table-cell;
+     vertical-align:middle;
+   }
+
+   .pager .pagination li a:hover,
+   .pager .pagination li a.active{
+     color: #000;
+     background: #c8fac8;
+     border-radius: 10px;
+   }
+
+
