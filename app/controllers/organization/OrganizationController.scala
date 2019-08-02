@@ -40,7 +40,7 @@ class OrganizationController @javax.inject.Inject()(
 
   def list = Action.async { implicit request =>
     var offset = 0
-    var currentPage = 0
+    var currentPage = 1
 
     request.getQueryString("page") match {
       case Some(x) => offset = (x.toInt - 1) * 10

@@ -45,4 +45,23 @@ function delete_hidden(name){
     console.log(element)
     element.parentNode.removeChild(element)
 }
+
+
+/* facility一覧でのsearchの場合とlistの場合を判断 */
+function movePageForFacilityList(pageUrl){
+  var e = document.getElementById("locationId");
+  var locationId = e.options[e.selectedIndex].value;
+  var route = /facility/;
+  if(locationId == ""){
+    /* list */
+    route = route + "list?";
+    window.location.href = route + pageUrl;
+  }else{
+    /* search */
+    route = route + "search?"
+    window.location.href = route + pageUrl + "&locationId=" + locationId;
+  }
+
+}
+
 </script>

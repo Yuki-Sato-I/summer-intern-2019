@@ -36,9 +36,17 @@ class FacilityController @javax.inject.Inject()(
     * 施設一覧ページ
     */
   def list = Action.async { implicit request =>
+    var offset = 0
+    var currentPage = 1
+
+    request.getQueryString("page") match {
+      case Some(x) => offset = (x.toInt - 1) * 10
+                      currentPage = x.toInt
+      case None    => offset = 0  //念の為
+    }
     for {
       locSeq      <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-      facilitySeq <- facilityDao.findAll
+      facilitySeq <- facilityDao.findWithPagenate(10, offset, currentPage)
     } yield {
       val vv = SiteViewValueFacilityList(
         layout     = ViewValuePageLayout(id = request.uri),
@@ -145,11 +153,19 @@ class FacilityController @javax.inject.Inject()(
    * 施設検索
    */
   def search = Action.async { implicit request =>
+    var offset = 0
+    var currentPage = 1
+
+    request.getQueryString("page") match {
+      case Some(x) => offset = (x.toInt - 1) * 10
+        currentPage = x.toInt
+      case None    => offset = 0  //念の為
+    }
     formForFacilitySearch.bindFromRequest.fold(
       errors => {
        for {
           locSeq      <- daoLocation.filterByIds(Location.Region.IS_PREF_ALL)
-          facilitySeq <- facilityDao.findAll
+          facilitySeq <- facilityDao.findWithPagenate(10, offset, currentPage)
         } yield {
           val vv = SiteViewValueFacilityList(
             layout     = ViewValuePageLayout(id = request.uri),
@@ -166,9 +182,9 @@ class FacilityController @javax.inject.Inject()(
             case Some(id) =>
               for {
                 locations   <- daoLocation.filterByPrefId(id)
-                facilitySeq <- facilityDao.filterByLocationIds(locations.map(_.id))
+                facilitySeq <- facilityDao.filterByLocationIdsWithPagenate(locations.map(_.id),10, offset, currentPage)
               } yield facilitySeq
-            case None     => facilityDao.findAll
+            case None     => facilityDao.findWithPagenate(10, offset, currentPage)
           }
         } yield {
           val vv = SiteViewValueFacilityList(

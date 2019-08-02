@@ -15,7 +15,7 @@ import persistence.organization.model.OrganizationEdit
 import scala.concurrent.ExecutionContext.Implicits.global
 import model.component.util.PaginatedResult
 
-import scala.math._ //計算用
+import scala.math.ceil //計算用
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~
 class OrganizationDAO @javax.inject.Inject()(
@@ -39,7 +39,8 @@ class OrganizationDAO @javax.inject.Inject()(
     *
     * @param limit  1ページあたりのデータ数
     * @param offset 先頭から何個データを抜かすか
-    * @return      PaginateResult
+    * @param page   現在のページ
+    * @return       PaginateResult
     */
   def findWithPagenate(limit: Int, offset: Int, page: Int) =
     db.run {

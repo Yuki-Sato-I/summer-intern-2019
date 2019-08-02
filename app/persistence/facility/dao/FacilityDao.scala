@@ -18,6 +18,9 @@ import persistence.geo.model.Location
 
 
 import persistence.facility.model.FacilityEdit
+import model.component.util.PaginatedResult
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.math.ceil //計算用
 
 // DAO: 施設情報
 //~~~~~~~~~~~~~~~~~~
@@ -57,6 +60,53 @@ class FacilityDAO @javax.inject.Inject()(
   def findAll: Future[Seq[Facility]] =
     db.run {
       slick.result
+    }
+
+
+  /**
+    *
+    * @param limit  1ページあたりのデータ数
+    * @param offset 先頭から何個データを抜かすか
+    * @param page   現在のページ
+    * @return       PaginateResult
+    */
+  def findWithPagenate(limit: Int, offset: Int, page: Int) =
+    db.run {
+      for {
+        facilities       <-  slick.drop(offset).take(limit).result
+        numOfFacilities  <-  slick.length.result
+      } yield PaginatedResult(
+        totalCount = numOfFacilities,
+        pageCount  = ceil(numOfFacilities.toDouble/limit.toDouble).toInt,
+        currentPage = page,
+        entities = facilities.toList,
+        hasNextPage = numOfFacilities - (offset + limit) > 0,
+        hasPreviousPage = offset != 0
+      )
+
+    }
+
+  /**
+    *
+    * @param locationIds
+    * @param limit
+    * @param offset
+    * @param page
+    * @return
+    */
+  def filterByLocationIdsWithPagenate(locationIds: Seq[Location.Id],limit: Int, offset: Int, page: Int) =
+    db.run {
+      for {
+        facilities       <-  slick.filter(_.locationId inSet locationIds).drop(offset).take(limit).result
+        numOfFacilities  <-  slick.filter(_.locationId inSet locationIds).length.result
+      } yield PaginatedResult(
+        totalCount = numOfFacilities,
+        pageCount  = ceil(numOfFacilities.toDouble/limit.toDouble).toInt,
+        currentPage = page,
+        entities = facilities.toList,
+        hasNextPage = numOfFacilities - (offset + limit) > 0,
+        hasPreviousPage = offset != 0
+      )
     }
 
   /**
