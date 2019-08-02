@@ -122,7 +122,7 @@ class FacilityController @javax.inject.Inject()(
       facility => {
         //for-yield使いたいけどうまくいかないからとりあえず動くやつ
         //asyncにすればいいんだけど,そしたらBadRequestでエラーが出ちゃう
-
+        //↑当たり前じゃんBadRequestの方でもforyield使えば良いってわかった、とりあえず放置
         //for {
         //  _ <- facilityDao.add(facility)
         //} yield {

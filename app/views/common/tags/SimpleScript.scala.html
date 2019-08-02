@@ -26,8 +26,6 @@ function checkFunc(name, organization_id, ischecked) {
     }else{
         delete_hidden(name+".organization_id")
     }
-
-     console.log("You have bought "+organization_id);
 }
 
 function make_hidden(name, value){
@@ -37,12 +35,10 @@ function make_hidden(name, value){
     q.value = value;
     q.id = name;
     document.forms[1].appendChild(q);
-    console.log("add!!!! ");
 }
 
 function delete_hidden(name){
     element = document.getElementById(name);
-    console.log(element)
     element.parentNode.removeChild(element)
 }
 
