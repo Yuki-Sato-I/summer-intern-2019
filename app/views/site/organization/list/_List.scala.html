@@ -10,7 +10,7 @@
     </h3>
     @** --[ 一覧 ]-------------------------------------------------------- *@
     <div class="content__section content">
-        @for(organization <- vv.organizations) {
+        @for(organization <- vv.organizations.entities) {
         <article class="organization-list-item">
             <a href="/organization/@organization.id">                                       @* /organization/show/@organization.id *@
                 <div class="item-panel__wrapper">
@@ -63,5 +63,24 @@
             </div>
         </article>
         }
+        <div class="pager">
+            <ui class="pagination">
+                @if(vv.organizations.hasPreviousPage){
+                    <li class="pre"><a href="@controllers.organization.routes.OrganizationController.list?page=@{vv.organizations.currentPage-1}"><span>«</span></a></li>
+                }
+                @for(i <- 1 to vv.organizations.pageCount){
+                    <li><a href='@controllers.organization.routes.OrganizationController.list?page=@i'
+                        @if(vv.organizations.currentPage == i){
+                           class="active"
+                           style="pointer-events: none;"
+                        }
+                    ><span>@i</span></a></li>
+                }
+                @if(vv.organizations.hasNextPage){
+                    <li class="pre"><a href="@controllers.organization.routes.OrganizationController.list?page=@{vv.organizations.currentPage+1}"><span>»</span></a></li>
+                }
+            </ui>
+        </div>
+
     </div>
 }

@@ -39,8 +39,17 @@ class OrganizationController @javax.inject.Inject()(
     */
 
   def list = Action.async { implicit request =>
+    var offset = 0
+    var currentPage = 0
+
+    request.getQueryString("page") match {
+      case Some(x) => offset = (x.toInt - 1) * 10
+                      currentPage = x.toInt
+      case None    => offset = 0  //念の為
+    }
+
     for {
-      organizationSeq <- organizationDao.findAll
+      organizationSeq <- organizationDao.findWithPagenate(10, offset, currentPage)
       relationSeq     <- relationDao.findAll
     } yield {
       val vv = SiteViewValueOrganizationList(
