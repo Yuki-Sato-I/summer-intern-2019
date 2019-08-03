@@ -60,4 +60,12 @@ function movePageForFacilityList(pageUrl){
 
 }
 
+
+function deleteCheck(e) {
+  'use strict';
+  if (confirm('本当に削除していいですか?')) {
+    document.getElementById('deleteFormForSome(' + e + ')').submit();
+  }
+}
+
 </script>

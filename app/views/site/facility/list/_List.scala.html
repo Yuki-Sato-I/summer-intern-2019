@@ -75,8 +75,9 @@
         </a>
         @* csrf やんなくていいのかな *@
         <div style="text-align: right;">
-          @helper.form(controllers.facility.routes.FacilityController.delete(facility.id.get)){
-            <input type="submit" value="削除" style="width: 100px; height: 40px;">
+          @helper.form(controllers.facility.routes.FacilityController.delete(facility.id.get),
+                        'id -> ("deleteFormFor" + facility.id.toString)){
+            <input type="button" value="削除" style="width: 100px; height: 40px;" onclick="deleteCheck(@facility.id);">
           }
         </div>
       </article>
