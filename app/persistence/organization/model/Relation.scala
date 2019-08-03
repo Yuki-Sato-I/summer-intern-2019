@@ -4,8 +4,6 @@ import play.api.data._
 import play.api.data.Forms._
 import java.time.LocalDateTime
 
-
-import persistence.geo.model.Location
 import persistence.facility.model.Facility
 
 

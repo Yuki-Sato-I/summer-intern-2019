@@ -10,10 +10,6 @@ import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.facility.model.Facility
 import persistence.organization.model.Organization
 import persistence.organization.model.Relation
-import persistence.geo.model.Location
-
-
-
 
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~
@@ -64,13 +60,25 @@ class RelationDAO @javax.inject.Inject()(
 
 
   /**
-    * 関係性を削除
+    * 関係性を削除 組織idで
     */
 
-  def delete(organizationId: Organization.Id) = {
+  def deleteWithOrganizationId(organizationId: Organization.Id) = {
     db.run(
       slick
         .filter(_.organizationId === organizationId)
+        .delete
+    )
+  }
+
+  /**
+    * 関係性を削除 施設idで
+    */
+
+  def deleteWithFacilityId(facilityId: Facility.Id) = {
+    db.run(
+      slick
+        .filter(_.facilityId === facilityId)
         .delete
     )
   }
