@@ -22,9 +22,9 @@
 <script>
 function checkFunc(name, organization_id, ischecked) {
     if(ischecked == true){
-        make_hidden(name+".organization_id", organization_id)
+        make_hidden(name + ".organization_id", organization_id);
     }else{
-        delete_hidden(name+".organization_id")
+        delete_hidden(name + ".organization_id");
     }
 }
 
@@ -39,7 +39,7 @@ function make_hidden(name, value){
 
 function delete_hidden(name){
     element = document.getElementById(name);
-    element.parentNode.removeChild(element)
+    element.parentNode.removeChild(element);
 }
 
 
@@ -54,7 +54,7 @@ function movePageForFacilityList(pageUrl){
     window.location.href = route + pageUrl;
   }else{
     /* search */
-    route = route + "search?"
+    route = route + "search?";
     window.location.href = route + pageUrl + "&locationId=" + locationId;
   }
 
