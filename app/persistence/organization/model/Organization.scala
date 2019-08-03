@@ -3,7 +3,6 @@ package persistence.organization.model
 import play.api.data._
 import play.api.data.Forms._
 import java.time.LocalDateTime
-//import は中間テーブルも使うかも 複数のfacilityとひもづけるため
 import persistence.geo.model.Location
 
 

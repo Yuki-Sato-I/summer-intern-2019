@@ -10,10 +10,6 @@ import play.api.db.slick.HasDatabaseConfigProvider
 import persistence.facility.model.Facility
 import persistence.organization.model.Organization
 import persistence.organization.model.Relation
-import persistence.geo.model.Location
-
-
-
 
 // DAO: 組織情報
 //~~~~~~~~~~~~~~~~~~

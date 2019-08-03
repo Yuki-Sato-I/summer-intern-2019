@@ -17,8 +17,6 @@ import model.site.facility.SiteViewValueFacilityList
 import model.component.util.ViewValuePageLayout
 import persistence.organization.dao.RelationDAO
 
-
-import persistence.facility.model.Facility
 import persistence.facility.model.Facility.formForFacilityEdit
 import persistence.facility.model.FacilityEdit
 

@@ -7,7 +7,6 @@ import slick.jdbc.JdbcProfile
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.db.slick.HasDatabaseConfigProvider
 
-import persistence.facility.model.Facility
 import persistence.geo.model.Location
 import persistence.organization.model.Organization
 import persistence.organization.model.OrganizationEdit
