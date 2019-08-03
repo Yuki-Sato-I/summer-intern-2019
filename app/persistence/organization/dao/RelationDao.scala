@@ -64,13 +64,25 @@ class RelationDAO @javax.inject.Inject()(
 
 
   /**
-    * 関係性を削除
+    * 関係性を削除 組織idで
     */
 
-  def delete(organizationId: Organization.Id) = {
+  def deleteWithOrganizationId(organizationId: Organization.Id) = {
     db.run(
       slick
         .filter(_.organizationId === organizationId)
+        .delete
+    )
+  }
+
+  /**
+    * 関係性を削除 施設idで
+    */
+
+  def deleteWithFacilityId(facilityId: Facility.Id) = {
+    db.run(
+      slick
+        .filter(_.facilityId === facilityId)
         .delete
     )
   }

@@ -215,7 +215,7 @@ class OrganizationController @javax.inject.Inject()(
       },
       form => {
         for {
-          _ <- relationDao.delete(id)
+          _ <- relationDao.deleteWithOrganizationId(id)
         } yield {
           for(relation <- form.relations){
             relationDao.add(relation)
@@ -233,6 +233,7 @@ class OrganizationController @javax.inject.Inject()(
   def delete(id: Organization.Id) = Action.async { implicit request =>
     for {
       _ <- organizationDao.delete(id)
+      _ <- relationDao.deleteWithOrganizationId(id)
     } yield {
       Redirect("/organization/list")
     }

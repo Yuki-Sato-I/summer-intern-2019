@@ -15,6 +15,7 @@ import persistence.geo.model.Location
 import persistence.geo.dao.LocationDAO
 import model.site.facility.SiteViewValueFacilityList
 import model.component.util.ViewValuePageLayout
+import persistence.organization.dao.RelationDAO
 
 
 import persistence.facility.model.Facility
@@ -28,6 +29,7 @@ import persistence.facility.model.Facility.formForNewFacility
 class FacilityController @javax.inject.Inject()(
   val facilityDao: FacilityDAO,
   val daoLocation: LocationDAO,
+  val relationDao: RelationDAO,
   cc: MessagesControllerComponents
 ) extends AbstractController(cc) with I18nSupport {
   implicit lazy val executionContext = defaultExecutionContext
@@ -141,6 +143,7 @@ class FacilityController @javax.inject.Inject()(
   def delete(id: Long) = Action.async { implicit request =>
     for {
       _ <- facilityDao.delete(id)
+      _ <- relationDao.deleteWithFacilityId(id)
 
     } yield {
 
