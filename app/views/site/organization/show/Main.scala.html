@@ -1,16 +1,14 @@
 @import model.site.organization.SiteViewValueOrganizationShow
-@import play.api.data.Form
-
 
 @(vv: SiteViewValueOrganizationShow)(implicit messages: play.api.i18n.Messages)
 @views.html.common.layout.Default(vv.layout) {
-@views.html.common.layout.ContentLayout(
-id      = "site-organization-show",
-content = tplContent
-)
+    @views.html.common.layout.ContentLayout(
+        id      = "site-organization-show",
+        content = tplContent
+    )
 }
 
 @** テンプレート: コンテンツ *@
 @tplContent = {
-@views.html.site.organization.show._Show(vv)
+    @views.html.site.organization.show._Show(vv)
 }

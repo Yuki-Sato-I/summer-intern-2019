@@ -18,9 +18,7 @@ import model.site.organization.SiteViewValueOrganizationEdit
 
 import persistence.organization.model.Relation.formForNewRelation
 
-import persistence.facility.model.Facility
 import persistence.facility.dao.FacilityDAO
-import persistence.geo.model.Location
 import persistence.geo.dao.LocationDAO
 
 // 施設
